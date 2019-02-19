@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="public/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./../css/profile-style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Special+Elite"
+      rel="stylesheet"
+    />
+    <title>lok-lok-lok</title>
+  </head>
+  <body>
+    <nav class="nav">
+      <span class="user">
+        <i class="fas fa-user-circle user--pic"></i>
+        <span class="user--name"></span
+      ></span>
+      <span class="logo">Facebook مش</span>
+      <i class="fas fa-sign-out-alt logout"></i>
+    </nav>
+    <main>
+      <div class="container">
+        <form class="post-form">
+          <textarea name="post" class="post-area" cols="60" rows="5"></textarea>
+          <input type="submit" class="submit-post" value="Submit Post" />
+        </form>
+        <div class="posts"></div>
+      </div>
+    </main>
+    <script src="public/js/fetch.js"></script>
+    <script src="public/js/dom/profile.js"></script>
+  </body>
 </html>
