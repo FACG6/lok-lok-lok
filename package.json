@@ -1,0 +1,37 @@
+{
+  "name": "lok-lok-lok",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node ./src/database/db_build.js && node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
+    "test": "tape ./test/server_test.js | tap-spec && tape ./test/database_test.js | tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FACG6/lok-lok-lok.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FACG6/lok-lok-lok/issues"
+  },
+  "homepage": "https://github.com/FACG6/lok-lok-lok#readme",
+  "dependencies": {
+    "env2": "^2.2.2",
+    "jsonwebtoken": "^8.4.0",
+    "pg": "^7.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.10.1"
+  }
+}
