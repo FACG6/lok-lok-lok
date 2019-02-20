@@ -29,10 +29,10 @@ signupForm.addEventListener("submit", event => {
     return;
   }
   const data = {
-    name: name.value,
     username: username.value,
-    pass: pass.value
+    pass: pass.value,
   };
+  console.log(data)
   fetch("POST", JSON.stringify(data), "/signup").catch(error =>
     console.log(error)
   );
