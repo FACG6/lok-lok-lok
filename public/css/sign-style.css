@@ -17,7 +17,10 @@
   font-family: "Special Elite", cursive;
   margin: auto;
 }
-.sign-up {
+input:focus:invalid{
+  border: 1px solid red;
+}
+.signup-btn {
   color: #2452af;
   background: white;
   border: 1px solid white;
@@ -31,17 +34,18 @@
   color: white;
   border: 2px solid white;
   box-shadow: 0.1px 0.1px 0.5px 0.5px white;
-  /* box-shadow: -1px -1px 1px 1px white; */
 }
 .container {
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
   align-items: center;
+  visibility: hidden;
+  display: none;
 }
-.form--signin {
+.form--sign {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,25 +55,28 @@
   border-radius: 8px;
   padding: 40px 5px;
 }
+.form--signup {
+  height: 80%;
+}
 .form--signin-body {
   height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.form--signin-icon {
+.form--sign-icon {
   color: #2856b1;
   font-size: 7rem;
   margin: 0 auto;
 }
-.form--signin-input {
+.form--sign-input {
   border: 0;
   border-bottom: 2px solid #4267b2;
   height: 40px;
   margin: 0 10px;
   padding: 3px;
 }
-.form--signin-input:focus {
+.form--sign-input:focus {
   animation-name: input;
   animation-duration: 0.5s;
   animation-iteration-count: 1;
@@ -96,7 +103,7 @@
   margin: 0 10px;
   /* color: #4267b2; */
 }
-.form--signin-submit {
+.submit {
   height: 35px;
   background: #4267b2;
   border: 1px solid #4267b2c9;
@@ -106,8 +113,16 @@
   font-family: cursive;
   border-radius: 5px;
   cursor: pointer;
-  margin: 0 10px 10px 10px;
+  margin: 10px;
 }
-.form--signin-submit:hover {
+.submit:hover {
   background: #4267b2c9;
+}
+.error-msg {
+  color: red;
+  text-align: center;
+}
+.show {
+  visibility: visible;
+  display: flex;
 }
