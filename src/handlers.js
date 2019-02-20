@@ -106,7 +106,7 @@ const handelProfilePage = (req,res)  => {
     })
      getUserId(user_Id,(error,result)=>{
          if (result.length !== 0){
-            getUserData = (user_id,(null,resultData) =>{
+            getUserData = (user_id,(error,resultData) =>{
                 res.writeHead(302,{'content-type':'application/json','location':'/'},)
                 res.end(JSON.stringify(resultData))
             })
@@ -126,13 +126,6 @@ module.exports = {
     errorHandler,
     handelAdd,
     handelSignIn,
-<<<<<<< HEAD
-    handelSignUp,
-    handelProfilePage
-
-
-
-=======
+    handelProfilePage,
     handelSignUp
->>>>>>> f9a2808672e4598ddddc7b19838584cbb08054fa
 };
