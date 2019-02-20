@@ -7,6 +7,7 @@ const {
   handelProfilePage,
   handelSignUp
 } = require("./handlers");
+
 const fs = require("fs");
 const path = require("path");
 
@@ -22,13 +23,13 @@ const router = (req, res) => {
         "html",
         "landing-page.html"
       );
-      fs.readFile(filePath, (err, res) => {
+      fs.readFile(filePath, (err, file) => {
         if (err) {
           res.writeHead(500, { "content-type": "text/html" });
           res.end("<h1>Server Error</h1>");
         } else {
           res.writeHead(200, { "content-type": "text/html" });
-          res.end(res);
+          res.end(file);
         }
       });
     } else {
@@ -39,46 +40,29 @@ const router = (req, res) => {
         "html",
         "landing-page.html"
       );
-      fs.readFile(filePath, (err, res) => {
+      fs.readFile(filePath, (err, file) => {
         if (err) {
           res.writeHead(500, { "content-type": "text/html" });
           res.end("<h1>Server Error</h1>");
         } else {
           res.writeHead(200, { "content-type": "text/html" });
-          res.end(res);
+          res.end(file);
         }
       });
-    }}
-    else if (endPoint === "/get-posts" && req.headers.cookie && req.headers.cookie.jwt){
-        handelProfilePage = (req,res);
-      }
-    //   handelSignIn(req,res);
-   else if (endPoint.includes("/public/")) {
+    }
+  } else if (endPoint === "/get-posts") {
+    handelProfilePage(req, res);
+  } else if (endPoint.includes("/public/")) {
     publicHandler(req, res);
   } else if (endPoint === "/add-post") {
     handelAdd(req, res);
-  }
-  // else if(endPoint === '/signin'){
-  //     handelSignIn(req,res);
-
-  // }
-  else if (endPoint === "/signup") {
-    handelSignUp(req, res);
-
-    if (endPoint === "/" && req.method === "POST") {
-      handelSignIn(req, res);
-    } else if (endPoint.includes("/public/")) {
-      publicHandler(req, res);
-    } else if (endPoint === "/add-post") {
-      handelAdd(req, res);
-    }
-    // else if(endPoint === '/signin'){
-    //     handelSignIn(req,res);
-    else if (endPoint === "/signup") {
-      handelSignUp(req, res);
-    } else {
-      errorHandler(res);
-    }
+  } else if (endPoint === "/signin") {
+    handelSignIn(req.res);
+  } else if (endPoint === "/signup") {
+    handelSignUp(req.res);
+  } else {
+    errorHandler(res);
   }
 };
+
 module.exports = router;
