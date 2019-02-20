@@ -135,7 +135,7 @@ const handelAdd = (req, res) => {
     allData += chunk;
   });
   req.on("end", () => {
-      const userID =
+    //   const userID =
     const convertedData = queryString.parse(allData);
     addPost(convertedData, (error, response) => {
       if (error) {
