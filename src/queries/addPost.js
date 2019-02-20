@@ -10,11 +10,11 @@ const addPost = (postContent, user_key, cb) => {
 };
 
 const usersignUp = (userName, password, cb) => {
-    const sql = `INSERT INTO users (user_name,user_password) VALUES ($1,$2) returning user_id`;
+    const sql = `INSERT INTO users (user_name,user_password) VALUES ($1,$2)`;
     const values = [userName, password];
     dbConnection.query(sql, values, (err, res) => {
         if(err) cb(err);
-        cb(null,res,'Signed up successfully');
+        cb(null,'Signed up successfully');
     });
 }
 
