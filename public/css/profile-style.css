@@ -27,7 +27,6 @@
   margin-top: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100vh;
   align-items: center;
 }
@@ -61,4 +60,30 @@
   display: flex;
   flex-direction: column;
   width: 55%;
+}
+.post-container {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  margin-top: 40px;
+  border: 2px solid rgb(238, 248, 252);
+  background: rgb(238, 248, 252);
+  border-radius: 5px;
+  padding: 5px;
+}
+.post-header {
+  display: flex;
+  font-size: 1.5rem;
+  height: 40%;
+}
+.post-body {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 60%;
+}
+.post--header-icon {
+  margin-right: 10px;
+  font-size: 2rem;
+  color: #4267b2;
 }
