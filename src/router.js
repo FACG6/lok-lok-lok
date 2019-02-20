@@ -3,6 +3,7 @@ const {
     publicHandler,
     errorHandler,
     handelAdd,
+    handelProfilePage,
     handelSignIn,
     handelSignUp
   } = require("./handlers");
@@ -10,16 +11,20 @@ const {
   const router = (req, res) => {
     const endPoint = req.url;
   
-    if (endPoint === "/" && req.method==='POST') {
+    if (endPoint === "/" ) {
       handelSignIn(req,res);
-    } else if (endPoint.includes("/public/")) {
+    }
+    else if (endPoint === "/get-posts" && req.headers.cookie && req.headers.cookie.jwt){
+      handelProfilePage = (req,res);
+    }
+    else if (endPoint.includes("/public/")) {
       publicHandler(req, res);
     } 
     else if(endPoint === '/add-post'){
        handelAdd(req,res);
     }
-    // else if(endPoint === '/signin'){
-    //     handelSignIn(req,res);
+    else if(endPoint === '/signin'){
+        handelSignIn(req,res);
 
     }
     else if(endPoint === '/signup'){

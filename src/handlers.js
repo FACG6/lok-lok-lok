@@ -2,6 +2,10 @@ const { readFile } = require('fs');
 const path = require('path');
 const queryString = require('querystring');
 const { postD, postsignIn, postsignUp } = require('./queries/addPost.js');
+const {parse} =require('cookie');
+const  { getUserData, checkUser, getUserId } =require('./queries/getPosts');
+const  addPost =require('./queries/addPost');
+require('env2')('./config.env')
 
 const homeHandler = (req, res) => {
     const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
@@ -94,7 +98,27 @@ const errorHandler = (response) => {
     response.end('<h1>404 Page Requested Cannot be Found</h1>');
 };
 
+const handelProfilePage = (req,res)  => {
+    const jwt=parse(req.headers.cookie);
+    const user_Id ='';
+    verify(jwt,process.env.SECRET, (err, jwt)=>{
+        user_Id=jwt.user_id;
+    })
+     getUserId(user_Id,(error,result)=>{
+         if (result.length !== 0){
+            getUserData = (user_id,(null,resultData) =>{
+                res.writeHead(302,{'content-type':'application/json','location':'/'},)
+                res.end(JSON.stringify(resultData))
+            })
+         }
+     })
 
+
+
+
+
+    
+}
 
 module.exports = {
     homeHandler,
@@ -102,7 +126,8 @@ module.exports = {
     errorHandler,
     handelAdd,
     handelSignIn,
-    handelSignUp
+    handelSignUp,
+    handelProfilePage
 
 
 
