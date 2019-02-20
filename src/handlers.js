@@ -13,7 +13,7 @@ const homeHandler = (req, res) => {
 };
 
 const serverError = res => {
-    res.writeHead(500, 'Content-Type:text/html');
+    res.writeHead(500, {'Content-Type':'text/html'});
     res.end('<h1>Sorry, there was a problem loading the homepage</h1>');
 };
 const publicHandler = (req, res) => {

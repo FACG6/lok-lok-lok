@@ -6,7 +6,7 @@
 .nav {
   display: flex;
   justify-content: space-between;
-  background: #4267b2c9;
+  background: #4267b2;
   padding: 10px;
   font-size: 1.5rem;
   font-weight: bold;
@@ -43,8 +43,8 @@
   resize: none;
 }
 .submit-post {
-  background: #4267b2c9;
-  border: 1px solid #4267b2c9;
+  background: #4267b2;
+  border: 1px solid #4267b2;
   font-size: 1.2rem;
   font-weight: bold;
   letter-spacing: 1px;
