@@ -12,11 +12,11 @@ const getUserData = cb => {
 
 const checkUser = (username, password, cb) => {
   dbConnection.query(
-    `SELECT user_name, user_password from users where user_name = '${username}' AND user_password = '${password}'`,
+    `SELECT user_id, user_name, user_password from users where user_name = '${username}' AND user_password = '${password}'`,
     (err, res) => {
       if (err) cb(err);
       else {
-        cb(null, "user does exist");
+        cb(null, res.rows);
       }
     }
   );

@@ -8,7 +8,11 @@ const addPost = require("./queries/addPost");
 require("env2")("./config.env");
 
 const homeHandler = (req, res) => {
-  if (req.headers.cookie) {
+  let cookie;
+  try {
+    cookie = parse(req.headers.cookie);
+  } catch (error) {}
+  if (cookie && !isNaN(cookie.user_id)) {
     const filepath = path.join(
       __dirname,
       "..",
@@ -56,14 +60,22 @@ const handelSignUp = (req, res) => {
   });
   req.on("end", () => {
     const convertedData = queryString.parse(allData);
-    usersignUp(convertedData, (error, response) => {
-      if (error) {
-        res.writeHead(500, { "content-type": "text/html" });
-        res.end("<h1>Server/Database Error</h1>");
-      } else {
-        res.writeHead(302, { location: "/" });
-        res.end();
-      }
+    req.on("end", () => {
+      const convertedData = JSON.parse(allData);
+
+      usersignUp(
+        convertedData.username,
+        convertedData.pass,
+        (error, response) => {
+          if (error) {
+            res.writeHead(500, { "content-type": "text/html" });
+            res.end("<h1>Server/Database Error</h1>");
+          } else {
+            res.writeHead(302, { location: "/" });
+            res.end();
+          }
+        }
+      );
     });
   });
 };
@@ -74,31 +86,27 @@ const handelSignIn = (req, res) => {
   });
   req.on("end", () => {
     const convertedData = queryString.parse(allData);
-    console.log(convertedData);
-    checkUser(password, user, (error, response) => {
-      if (error) {
-        res.writeHead(500, { "content-type": "text/html" });
-        res.end("<h1>Server/Database Error</h1>");
-      } else {
-        if (password == response.pas) {
-          const filepath = path.join(
-            __dirname,
-            "..",
-            "public",
-            "html",
-            "profile.html"
-          );
-          readFile(filepath, (err, file) => {
-            if (err) serverError(res);
-            res.writeHead(200, {
-              "Content-Type": "text/html",
-              "Set-Cookie": "logged_in=true"
+    checkUser(
+      convertedData["signin-username"],
+      convertedData.password,
+      (error, response) => {
+        if (error) {
+          res.writeHead(500, { "content-type": "text/html" });
+          res.end("<h1>Server/Database Error</h1>");
+        } else {
+          if (response.length !== 0) {
+            res.writeHead(302, {
+              location: "/",
+              "Set-Cookie": `user_id=${response[0].user_id}`
             });
-            res.end(file);
-          });
+            res.end();
+          } else {
+            res.writeHead(302, { location: "/" });
+            res.end();
+          }
         }
       }
-    });
+    );
   });
 };
 const serverError = res => {
