@@ -13,13 +13,13 @@ const homeHandler = (req, res) => {
 };
 
 const serverError = res => {
-    res.writeHead(500, 'Content-Type:text/html');
+    res.writeHead(500, {'Content-Type':'text/html'});
     res.end('<h1>Sorry, there was a problem loading the homepage</h1>');
 };
 const publicHandler = (req, res) => {
     const filepath = path.join(__dirname, '..', req.url);
     readFile(filepath, (err, file) => {
-        if (err) return serverError(err, res);
+        if (err) serverError(res);
         const extension = path.extname(req.url).split('.')[1];
         const extensionType = {
             html: 'text/html',

@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background: #4267b2;
+  padding: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: rgb(255, 248, 233);
+}
+.logo {
+  font-family: "Special Elite", cursive;
+  margin: auto;
+}
+.sign-up {
+  color: #2452af;
+  background: white;
+  border: 1px solid white;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 120px;
+  font-size: 1.1rem;
+}
+.sign-up:hover {
+  background: #4267b2;
+  color: white;
+  border: 2px solid white;
+  box-shadow: 0.1px 0.1px 0.5px 0.5px white;
+  /* box-shadow: -1px -1px 1px 1px white; */
+}
+.container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  align-items: center;
+}
+.form--signin {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25%;
+  border: 3px solid #4267b2;
+  height: 65%;
+  border-radius: 8px;
+  padding: 40px 5px;
+}
+.form--signin-body {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.form--signin-icon {
+  color: #2856b1;
+  font-size: 7rem;
+  margin: 0 auto;
+}
+.form--signin-input {
+  border: 0;
+  border-bottom: 2px solid #4267b2;
+  height: 40px;
+  margin: 0 10px;
+  padding: 3px;
+}
+.form--signin-input:focus {
+  animation-name: input;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+}
+@keyframes input {
+  0% {
+    margin: 0 10px;
+  }
+  25% {
+    margin: 0 5px 0 15px;
+  }
+  50% {
+  }
+  75% {
+    margin: 0 15px 0 5px;
+  }
+  100% {
+    margin: 0 10px;
+  }
+}
+.form--signin-createacc {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin: 0 10px;
+  /* color: #4267b2; */
+}
+.form--signin-submit {
+  height: 35px;
+  background: #4267b2;
+  border: 1px solid #4267b2c9;
+  color: white;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-family: cursive;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px 10px 10px;
+}
+.form--signin-submit:hover {
+  background: #4267b2c9;
+}
