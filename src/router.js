@@ -54,9 +54,9 @@ const router = (req, res) => {
   } else if (endPoint === "/add-post") {
     handelAdd(req, res);
   } else if (endPoint === "/signin") {
-    handelSignIn(req.res);
+    handelSignIn(req, res);
   } else if (endPoint === "/signup") {
-    handelSignUp(req.res);
+    handelSignUp(req,res);
   } else {
     errorHandler(res);
   }
