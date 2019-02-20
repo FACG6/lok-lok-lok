@@ -4,6 +4,7 @@ const {
   errorHandler,
   handelAdd,
   handelSignIn,
+  handelProfilePage,
   handelSignUp
 } = require("./handlers");
 
@@ -14,41 +15,9 @@ const router = (req, res) => {
   const endPoint = req.url;
 
   if (endPoint === "/") {
-    if (req.headers.cookie) {
-      const filePath = path.join(
-        __dirname,
-        "..",
-        "public",
-        "html",
-        "landing-page.html"
-      );
-      fs.readFile(filePath, (err, file) => {
-        if (err) {
-          res.writeHead(500, { "content-type": "text/html" });
-          res.end("<h1>Server Error</h1>");
-        } else {
-          res.writeHead(200, { "content-type": "text/html" });
-          res.end(file);
-        }
-      });
-    } else {
-      const filePath = path.join(
-        __dirname,
-        "..",
-        "public",
-        "html",
-        "landing-page.html"
-      );
-      fs.readFile(filePath, (err, file) => {
-        if (err) {
-          res.writeHead(500, { "content-type": "text/html" });
-          res.end("<h1>Server Error</h1>");
-        } else {
-          res.writeHead(200, { "content-type": "text/html" });
-          res.end(file);
-        }
-      });
-    }
+    homeHandler(req, res);
+  } else if (endPoint === "/get-posts") {
+    handelProfilePage(req, res);
   } else if (endPoint.includes("/public/")) {
     publicHandler(req, res);
   } else if (endPoint === "/add-post") {
@@ -56,7 +25,7 @@ const router = (req, res) => {
   } else if (endPoint === "/signin") {
     handelSignIn(req, res);
   } else if (endPoint === "/signup") {
-    handelSignUp(req,res);
+    handelSignUp(req, res);
   } else {
     errorHandler(res);
   }

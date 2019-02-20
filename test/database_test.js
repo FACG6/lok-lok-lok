@@ -29,8 +29,8 @@ tape('test checkUser function ', (t) => {
   tape('test getUserId  function ', (t) => {
     runDbBuild((err, res) => {
       if (err) t.error(err, 'Error');
-      const expected = [ { user_id: 1 }, { user_id: 2 }, { user_id: 3 }, { user_id: 4 } ];
-      getUserId ((err, result) => {
+      const expected = [ { user_id: 1 } ];
+      getUserId (1,(err, result) => {
         if (err) t.error(err);
         t.deepEqual(result, expected, 'test  getUserId  is done');
         t.end();
