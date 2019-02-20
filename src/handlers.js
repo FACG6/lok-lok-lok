@@ -135,8 +135,9 @@ const handelAdd = (req, res) => {
     allData += chunk;
   });
   req.on("end", () => {
+      const userID =
     const convertedData = queryString.parse(allData);
-    postD(convertedData, (error, response) => {
+    addPost(convertedData, (error, response) => {
       if (error) {
         res.writeHead(500, { "content-type": "text/html" });
         res.end("<h1>Server/Database Error</h1>");
