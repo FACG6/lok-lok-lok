@@ -22,13 +22,13 @@ const router = (req, res) => {
         "html",
         "landing-page.html"
       );
-      fs.readFile(filePath, (err, res) => {
+      fs.readFile(filePath, (err, file) => {
         if (err) {
           res.writeHead(500, { "content-type": "text/html" });
           res.end("<h1>Server Error</h1>");
         } else {
           res.writeHead(200, { "content-type": "text/html" });
-          res.end(res);
+          res.end(file);
         }
       });
     } else {
@@ -39,13 +39,13 @@ const router = (req, res) => {
         "html",
         "landing-page.html"
       );
-      fs.readFile(filePath, (err, res) => {
+      fs.readFile(filePath, (err, file) => {
         if (err) {
           res.writeHead(500, { "content-type": "text/html" });
           res.end("<h1>Server Error</h1>");
         } else {
           res.writeHead(200, { "content-type": "text/html" });
-          res.end(res);
+          res.end(file);
         }
       });
     }
@@ -53,15 +53,13 @@ const router = (req, res) => {
     publicHandler(req, res);
   } else if (endPoint === "/add-post") {
     handelAdd(req, res);
-  } else if (endPoint === '/signin') {
+  } else if (endPoint === "/signin") {
     handelSignIn(req.res);
-  }
-  else if (endPoint === '/signup') {
+  } else if (endPoint === "/signup") {
     handelSignUp(req.res);
-  }
-  else {
+  } else {
     errorHandler(res);
   }
-}
+};
 
 module.exports = router;
