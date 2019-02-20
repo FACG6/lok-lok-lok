@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 const dbConnection = require('../database/db_connection');
 
 const addPost = (postContent,username,cb)=>{
@@ -9,3 +10,5 @@ const addPost = (postContent,username,cb)=>{
         cb(null,'Successfully added');
     });
 }
+=======
+>>>>>>> 19f7506328bf00959863e1e967245f50887d0a9a

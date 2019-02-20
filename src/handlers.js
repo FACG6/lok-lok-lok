@@ -64,13 +64,13 @@ else{
 };
 
 const serverError = res => {
-    res.writeHead(500, 'Content-Type:text/html');
+    res.writeHead(500, {'Content-Type':'text/html'});
     res.end('<h1>Sorry, there was a problem loading the homepage</h1>');
 };
 const publicHandler = (req, res) => {
     const filepath = path.join(__dirname, '..', req.url);
     readFile(filepath, (err, file) => {
-        if (err) return serverError(err, res);
+        if (err) return serverError(res);
         const extension = path.extname(req.url).split('.')[1];
         const extensionType = {
             html: 'text/html',
@@ -102,8 +102,47 @@ const handelAdd = (req, res) => {
         });
     });
 };
+<<<<<<< HEAD
 
 
+=======
+const handelSignIn = (req, res) => {
+    let allData = '';
+    req.on('data', (chunk) => {
+        allData += chunk;
+    });
+    req.on('end', () => {
+        const convertedData = queryString.parse(allData);
+        postsignIn(convertedData, (error, res) => {
+            if (error) {
+                res.writeHead(500, { 'content-type': 'text/html' });
+                res.end('<h1>Server/Database Error</h1>');
+            } else {
+                res.writeHead(302, { location: '/' });
+                res.end();
+            }
+        });
+    });
+};
+const handelSignUp = (req, res) => {
+    let allData = '';
+    req.on('data', (chunk) => {
+        allData += chunk;
+    });
+    req.on('end', () => {
+        const convertedData = queryString.parse(allData);
+        postsignUp(convertedData, (error, response) => {
+            if (error) {
+                res.writeHead(500, { 'content-type': 'text/html' });
+                res.end('<h1>Server/Database Error</h1>');
+            } else {
+                res.writeHead(302, { location: '/' });
+                res.end();
+            }
+        });
+    });
+};
+>>>>>>> 19f7506328bf00959863e1e967245f50887d0a9a
 
 
 const errorHandler = (response) => {
