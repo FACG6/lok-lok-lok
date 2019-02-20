@@ -1,4 +1,8 @@
 const postsDiv = document.querySelector(".posts");
+const logout = document.querySelector(".logout");
+
+logout.addEventListener("click", event => (document.cookie = ""));
+
 window.onload = () => {
   fetch("GET", null, "/get-posts")
     .then(renderPosts)
