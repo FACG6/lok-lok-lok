@@ -10,12 +10,23 @@ const addPost = (postContent, user_key, cb) => {
 };
 
 const usersignUp = (userName, password, cb) => {
-    const sql = `INSERT INTO users (user_name,user_password) VALUES ($1,$2)`;
-    const values = [userName, password];
-    dbConnection.query(sql, values, (err, res) => {
+    const sql = `INSERT INTO users (user_name,user_password) VALUES ('${userName}', '${password}')`;
+    // const values = [userName, password];
+    dbConnection.query(sql, (err, res) => {
         if(err) cb(err);
         cb(null,'Signed up successfully');
     });
 }
+
+
+
+// const usersignUp = (userName, password, cb) => {
+//     const sql = `INSERT INTO users (user_name,user_password) VALUES ($1,$2)`;
+//     const values = [userName, password];
+//     dbConnection.query(sql, values, (err, res) => {
+//         if(err) cb(err);
+//         cb(null,'Signed up successfully');
+//     });
+// }
 
 module.exports = { addPost, usersignUp };

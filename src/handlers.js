@@ -49,6 +49,7 @@ const homeHandler = (req, res) => {
     }
 };
 const handelSignUp = (request, res) => {
+    console.log(11111111111111111111);
     const filepath = path.join(__dirname, '..', 'public', 'html', 'landing-page.html');
     readFile(filepath, (err, file) => {
         if (err) serverError(res);
@@ -72,9 +73,8 @@ const handelSignUp = (request, res) => {
                         res.writeHead(500, { 'content-type': 'text/html' });
                         res.end('<h1>Server/Database Error</h1>');
                     } else {
-                        const signedData = jwt.sign(JSON.stringify({ user_id: id }), SECRET);
-                        console.log(signedData);
-                        res.writeHead(302, { 'location': '/', 'set-cookie': `jwt=${signedData}` });
+                        console.log(22222222222);
+                        res.writeHead(302, { 'location': '/' });
                         res.end();
                     }
                 });
@@ -89,31 +89,21 @@ const handelSignIn = (req, res) => {
     });
     req.on("end", () => {
         const convertedData = queryString.parse(allData);
-        checkUser(
-            convertedData["signin-username"],
-            convertedData.password,
-            (error, response) => {
-                if (error) {
-                    res.writeHead(500, { "content-type": "text/html" });
-                    res.end("<h1>Server/Database Error</h1>");
+        checkUser(convertedData["signin-username"], convertedData.password, (error, response) => {
+            if (error) {
+                res.writeHead(500, { "content-type": "text/html" });
+                res.end("<h1>Server/Database Error</h1>");
+            } else {
+                if (response.length !== 0) {
+                    const signedData = jwt.sign(JSON.stringify({ user_id: response[0].user_id }), secret);
+                    res.writeHead(302, { location: "/", "Set-Cookie": `jwt=${signedData}` });
+                    res.end();
                 } else {
-                    if (response.length !== 0) {
-                        res.writeHead(302, {
-                            location: "/",
-                            "Set-Cookie": `user_id=${response[0].user_id}`
-                        });
-
-                        const signedData = jwt.sign(JSON.stringify({ user_id: id }), SECRET);
-                        console.log(signedData);
-                        res.writeHead(302, { 'location': '/', 'set-cookie': `jwt=${signedData}` })
-
-                        res.end();
-                    } else {
-                        res.writeHead(302, { location: "/" });
-                        res.end();
-                    }
+                    res.writeHead(302, { location: "/" });
+                    res.end();
                 }
             }
+        }
         );
     });
 };
