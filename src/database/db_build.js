@@ -7,5 +7,5 @@ const sql = fs.readFileSync(path.join(__dirname, "db_build.sql")).toString();
 const runDbBuild = () => {
   dbConnection.query(sql, () => console.log("Database was built succesfully"));
 };
-
+runDbBuild();
 module.exports = runDbBuild;
