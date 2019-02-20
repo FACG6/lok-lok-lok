@@ -2,6 +2,14 @@ const { readFile } = require('fs');
 const path = require('path');
 const queryString = require('querystring');
 const { postD, postsignIn, postsignUp } = require('./queries/addPost.js');
+const bcrypt = require(bcryptjs);
+
+const hashFunction = (password)=>{
+    bcrypt.genSalt(10,(err,salt)=>{
+        if(err)cb(err);
+        bcrypt.hash(password,salt,cb)
+    })
+}
 
 const homeHandler = (req, res) => {
     const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
@@ -75,7 +83,7 @@ const handelSignUp = (req, res) => {
         allData += chunk;
     });
     req.on('end', () => {
-        const convertedData = queryString.parse(allData);
+        const convertedData = JSON.parse(allData);
         postsignUp(convertedData, (error, response) => {
             if (error) {
                 res.writeHead(500, { 'content-type': 'text/html' });
