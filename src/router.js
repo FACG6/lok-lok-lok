@@ -6,10 +6,8 @@ const {
     handelSignIn,
     handelSignUp
   } = require("./handlers");
-  
   const router = (req, res) => {
     const endPoint = req.url;
-  
     if (endPoint === "/") {
       homeHandler(req, res);
     } else if (endPoint.includes("/public/")) {
@@ -20,13 +18,10 @@ const {
     }
     else if(endPoint === '/signin'){
         handelSignIn(req.res);
-
     }
     else if(endPoint === '/signup'){
         handelSignUp(req.res);
-
     }
-
      else {
       errorHandler(res);
     }

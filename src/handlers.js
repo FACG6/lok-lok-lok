@@ -4,12 +4,63 @@ const queryString = require('querystring');
 const { postD, postsignIn, postsignUp } = require('./queries/addPost.js');
 
 const homeHandler = (req, res) => {
-    const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
+    if(req.header.cookie){
+        const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
+        readFile(filepath, (err, file) => {
+            if (err) serverError(res);
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(file);
+        });
+    }
+else{
+    const filepath = path.join(__dirname, '..', 'public', 'html', 'landing-page.html');
     readFile(filepath, (err, file) => {
         if (err) serverError(res);
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(file);
+        
     });
+    const handelSignIn = (req, res) => {
+        let allData = '';
+        req.on('data', (chunk) => {
+            allData += chunk;
+        });
+        req.on('end', () => {
+            const convertedData = queryString.parse(allData);
+            postsignIn(convertedData, (error, response) => {
+                if (error) {
+                    res.writeHead(500, { 'content-type': 'text/html' });
+                    res.end('<h1>Server/Database Error</h1>');
+                } else {
+                    res.writeHead(302, { location: '/' });
+                    res.end();
+                }
+            });
+        });
+    };
+    const handelSignUp = (req, res) => {
+        let allData = '';
+        req.on('data', (chunk) => {
+            allData += chunk;
+        });
+        req.on('end', () => {
+            const convertedData = queryString.parse(allData);
+            postsignUp(convertedData, (error, response) => {
+                if (error) {
+                    res.writeHead(500, { 'content-type': 'text/html' });
+                    res.end('<h1>Server/Database Error</h1>');
+                } else {
+                    res.writeHead(302, { location: '/' });
+                    res.end();
+                }
+            });
+        });
+    };
+
+    
+
+}
+   
 };
 
 const serverError = res => {
@@ -51,42 +102,8 @@ const handelAdd = (req, res) => {
         });
     });
 };
-const handelSignIn = (req, res) => {
-    let allData = '';
-    req.on('data', (chunk) => {
-        allData += chunk;
-    });
-    req.on('end', () => {
-        const convertedData = queryString.parse(allData);
-        postsignIn(convertedData, (error, response) => {
-            if (error) {
-                res.writeHead(500, { 'content-type': 'text/html' });
-                res.end('<h1>Server/Database Error</h1>');
-            } else {
-                res.writeHead(302, { location: '/' });
-                res.end();
-            }
-        });
-    });
-};
-const handelSignUp = (req, res) => {
-    let allData = '';
-    req.on('data', (chunk) => {
-        allData += chunk;
-    });
-    req.on('end', () => {
-        const convertedData = queryString.parse(allData);
-        postsignUp(convertedData, (error, response) => {
-            if (error) {
-                res.writeHead(500, { 'content-type': 'text/html' });
-                res.end('<h1>Server/Database Error</h1>');
-            } else {
-                res.writeHead(302, { location: '/' });
-                res.end();
-            }
-        });
-    });
-};
+
+
 
 
 const errorHandler = (response) => {
