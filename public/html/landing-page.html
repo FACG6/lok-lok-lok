@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>lok-lok-lok</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="public/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="public/css/sign-style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Special+Elite"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <button id="signUp" class="signUp">Sign UP</button>
-    <form novalidate>
-        <label for="userName-signIn">User name</label>
-        <input type="text" id="userName-signIn" class="userName-signIn" required >
-        <span class="userName-signIn-span" id='userName-signIn-span'></span>
-        <label for="password-signIn">Password</label>
-        <input type="password" id="password-signIn" class="password-signIn" required >
-        <span class="password-signIn-span" id="password-signIn-span"></span>
-        <button id="signIn" class="signIn">Sign In</button>
-    </form>
-    <form id="signUp-form" novalidate>
-        <label for="userName-signUp">User name</label>
-        <input type="text" id="userName-signUp" class="userName-signUp" required>
-        <span id="userName-signUp-span"></span>
-        <label for="password-signUp">Password</label>
-        <input type="password" id="password-signUp" class="password-signUp" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-        <span id="password-signUp-span"></span>
-        <label for="passwordConfirm-signUp">Password Confirm</label>
-        <input type="password" id="passwordConfirm-signUp" class="passwordConfirm-signUp" required >
-        <span id="passwordConfirm-signUp-span"></span>
-        <input type="submit" value="Sign Up">
-    </form>
-</body>
-<script src="../js/dom/sign.js"></script>
+  <body>
+    <nav class="nav">
+      <span class="logo">Facebook مش</span>
+      <button class="sign-up">Sign Up <i class="fas fa-user-plus"></i></button>
+    </nav>
+    <main>
+      <div class="container">
+        <form class="form--signin">
+          <i class="fas fa-user-circle form--signin-icon"></i>
+          <input
+            type="text"
+            name="username"
+            class="form--signin-username form--signin-input"
+            placeholder="Username"
+            autocomplete="off"
+          />
+          <input
+            type="password"
+            name="password"
+            class="form--signin-password form--signin-input"
+            placeholder="Password"
+            autocomplete="off"
+          />
+          <input type="submit" class="form--signin-submit" value="Sign In" />
+        </form>
+      </div>
+    </main>
+  </body>
+  <script src="../js/dom/sign.js"></script>
 </html>
