@@ -10,20 +10,20 @@ const {
   const router = (req, res) => {
     const endPoint = req.url;
   
-    if (endPoint === "/") {
-      homeHandler(req, res);
+    if (endPoint === "/" && req.method==='POST') {
+      handelSignIn(req,res);
     } else if (endPoint.includes("/public/")) {
       publicHandler(req, res);
     } 
     else if(endPoint === '/add-post'){
-       handelAdd(req.res);
+       handelAdd(req,res);
     }
-    else if(endPoint === '/signin'){
-        handelSignIn(req.res);
+    // else if(endPoint === '/signin'){
+    //     handelSignIn(req,res);
 
     }
     else if(endPoint === '/signup'){
-        handelSignUp(req.res);
+        handelSignUp(req,res);
 
     }
 
