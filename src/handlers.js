@@ -13,13 +13,13 @@ const homeHandler = (req, res) => {
 };
 
 const serverError = res => {
-    res.writeHead(500, 'Content-Type:text/html');
+    res.writeHead(500, {'Content-Type':'text/html'});
     res.end('<h1>Sorry, there was a problem loading the homepage</h1>');
 };
 const publicHandler = (req, res) => {
     const filepath = path.join(__dirname, '..', req.url);
     readFile(filepath, (err, file) => {
-        if (err) return serverError(err, res);
+        if (err) return serverError(res);
         const extension = path.extname(req.url).split('.')[1];
         const extensionType = {
             html: 'text/html',
@@ -58,7 +58,7 @@ const handelSignIn = (req, res) => {
     });
     req.on('end', () => {
         const convertedData = queryString.parse(allData);
-        postsignIn(convertedData, (error, response) => {
+        postsignIn(convertedData, (error, res) => {
             if (error) {
                 res.writeHead(500, { 'content-type': 'text/html' });
                 res.end('<h1>Server/Database Error</h1>');

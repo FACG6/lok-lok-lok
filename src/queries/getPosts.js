@@ -7,19 +7,18 @@ const getUserData = (cb) => {
     });
 }
 
-const checkUser = (username, password, cb) => {
-    dbConnection.query(`SELECT user_name, user_password from users where user_name = '${username}' AND user_password = '${password}'`, (err, res) => {
+const checkUser = (user_name, password, cb) => {
+    dbConnection.query(`SELECT user_name, user_password from users where user_name = '${user_name}' AND user_password = '${password}'`, (err, res) => {
         if (err) cb(err);
         else {
-            cb(null, getUserData());
+            cb(null,'user does exist');
         }
     })
 }
-
-const getUserId = (username, cb) => {
-    dbConnection.query(`select user_id from users where user_name = '${username}'`, (err, res) => {
+const getUserId = (user_id, cb) => {
+    dbConnection.query(`select user_id from users where user_id = '${user_id}'`, (err, res) => {
         if (err) cb(err);
-        cb(null, res);
+        cb(null, res.rows);
     })
 }
 
