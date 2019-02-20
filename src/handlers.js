@@ -48,7 +48,7 @@ const handelSignUp = (req, res) => {
         });
     });
 };
-const handelSignIn = (req, res) => {
+const handelSignIn = (req, res) => {    
     let allData = '';
     req.on('data', (chunk) => {
         allData += chunk;
