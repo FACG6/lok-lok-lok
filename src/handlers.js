@@ -103,7 +103,4 @@ module.exports = {
     handelAdd,
     handelSignIn,
     handelSignUp
-
-
-
 };
