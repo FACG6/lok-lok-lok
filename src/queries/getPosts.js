@@ -11,7 +11,7 @@ const checkUser = (user_name, password, cb) => {
     dbConnection.query(`SELECT user_name, user_password from users where user_name = '${user_name}' AND user_password = '${password}'`, (err, res) => {
         if (err) cb(err);
         else {
-            cb(null,'user does exist');
+            cb(null, 'user does exist');
         }
     })
 }
@@ -22,4 +22,4 @@ const getUserId = (user_id, cb) => {
     })
 }
 
-module.exports = { getUserData , checkUser, getUserId };
+module.exports = { getUserData, checkUser, getUserId };

@@ -6,6 +6,7 @@ const {
   handelSignIn,
   handelSignUp
 } = require("./handlers");
+
 const fs = require("fs");
 const path = require("path");
 
@@ -48,33 +49,19 @@ const router = (req, res) => {
         }
       });
     }
-    //   handelSignIn(req,res);
   } else if (endPoint.includes("/public/")) {
     publicHandler(req, res);
   } else if (endPoint === "/add-post") {
     handelAdd(req, res);
+  } else if (endPoint === '/signin') {
+    handelSignIn(req.res);
   }
-  // else if(endPoint === '/signin'){
-  //     handelSignIn(req,res);
-
-  // }
-  else if (endPoint === "/signup") {
-    handelSignUp(req, res);
-
-    if (endPoint === "/" && req.method === "POST") {
-      handelSignIn(req, res);
-    } else if (endPoint.includes("/public/")) {
-      publicHandler(req, res);
-    } else if (endPoint === "/add-post") {
-      handelAdd(req, res);
-    }
-    // else if(endPoint === '/signin'){
-    //     handelSignIn(req,res);
-    else if (endPoint === "/signup") {
-      handelSignUp(req, res);
-    } else {
-      errorHandler(res);
-    }
+  else if (endPoint === '/signup') {
+    handelSignUp(req.res);
   }
-};
+  else {
+    errorHandler(res);
+  }
+}
+
 module.exports = router;
