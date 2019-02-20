@@ -1,27 +1,102 @@
 const { readFile } = require('fs');
 const path = require('path');
 const queryString = require('querystring');
-const { postD, postsignIn, postsignUp } = require('./queries/addPost.js');
-const bcrypt = require(bcryptjs);
+const { postD, postsignIn, postsignUp , usersignUp } = require('./queries/addPost.js');
+const { getUserData, checkUser, getUserId  } = require('./queries/getPosts');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const secret = 'fg!efd4g4gh*efgDF4#T3YDF';
 
-const hashFunction = (password)=>{
-    bcrypt.genSalt(10,(err,salt)=>{
-        if(err)cb(err);
-        bcrypt.hash(password,salt,cb)
+
+const hashFunction = (password, cb) => {
+    bcrypt.genSalt(10, (err, salt) => {
+        if (err) cb(err);
+        bcrypt.hash(password, salt, cb)
     })
 }
 
 const homeHandler = (req, res) => {
-    const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
+    if (req.headers.cookie) {
+        const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
+        readFile(filepath, (err, file) => {
+            if (err) serverError(res);
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(file);
+        });
+    }
+    else {
+        const filepath = path.join(__dirname, '..', 'public', 'html', 'landing-page.html');
+        readFile(filepath, (err, file) => {
+            if (err) serverError(res);
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(file);
+        });
+    }
+};
+const handelSignUp = (request , res) => {
+    const filepath = path.join(__dirname, '..', 'public', 'html', 'landing-page.html');
     readFile(filepath, (err, file) => {
         if (err) serverError(res);
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(file);
     });
+    let allData = '';
+    request.on('data', (chunk) => {
+        allData += chunk;
+    });
+    request.on('end', () => {
+        const convertedData = JSON.parse(allData);
+        hashFunction(convertedData.pass, (err, result) => {
+            if (err) {
+                res.writeHead(500, { 'content-type': 'text/html' });
+                res.end('<h1>Server Error</h1>');
+            }
+            else {
+                usersignUp(convertedData.username, result, (error, id ,response) => {
+                    if (error) {
+                        res.writeHead(500, { 'content-type': 'text/html' });
+                        res.end('<h1>Server/Database Error</h1>');
+                    } else {
+                        console.log(5555544444444444444, id);
+                        const signedData = jwt.sign(JSON.stringify({user_id: id}),secret);
+                        console.log(signedData);
+                        res.writeHead(302, {'location': '/', 'set-cookie': `jwt=${signedData}`});
+                        res.end();
+                    }
+                });
+            }
+        })
+    });
 };
+const handelSignIn = (req, res) => {
+    let allData = '';
+    req.on('data', (chunk) => {
+        allData += chunk;
+    });
+    req.on('end', () => {
+        const convertedData = queryString.parse(allData);
+        console.log(convertedData);
+        checkUser(password, user, (error, response) => {
+            if (error) {
+                res.writeHead(500, { 'content-type': 'text/html' });
+                res.end('<h1>Server/Database Error</h1>');
+            } else {
+                if (password == response.pas) {
+                    const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
+                    readFile(filepath, (err, file) => {
+                        if (err) serverError(res);
+                        res.writeHead(200, { 'Content-Type': 'text/html', 'Set-Cookie': 'logged_in=true' });
+                        res.end(file);
+                    });
 
+                }
+            }
+        });
+
+    })
+}
 const serverError = res => {
-    res.writeHead(500, {'Content-Type':'text/html'});
+    res.writeHead(500, { 'Content-Type': 'text/html' });
     res.end('<h1>Sorry, there was a problem loading the homepage</h1>');
 };
 const publicHandler = (req, res) => {
@@ -47,42 +122,6 @@ const handelAdd = (req, res) => {
         allData += chunk;
     });
     req.on('end', () => {
-        const convertedData = queryString.parse(allData);
-        postD(convertedData, (error, response) => {
-            if (error) {
-                res.writeHead(500, { 'content-type': 'text/html' });
-                res.end('<h1>Server/Database Error</h1>');
-            } else {
-                res.writeHead(302, { location: '/' });
-                res.end();
-            }
-        });
-    });
-};
-const handelSignIn = (req, res) => {
-    let allData = '';
-    req.on('data', (chunk) => {
-        allData += chunk;
-    });
-    req.on('end', () => {
-        const convertedData = queryString.parse(allData);
-        postsignIn(convertedData, (error, res) => {
-            if (error) {
-                res.writeHead(500, { 'content-type': 'text/html' });
-                res.end('<h1>Server/Database Error</h1>');
-            } else {
-                res.writeHead(302, { location: '/' });
-                res.end();
-            }
-        });
-    });
-};
-const handelSignUp = (req, res) => {
-    let allData = '';
-    req.on('data', (chunk) => {
-        allData += chunk;
-    });
-    req.on('end', () => {
         const convertedData = JSON.parse(allData);
         postsignUp(convertedData, (error, response) => {
             if (error) {
@@ -95,6 +134,8 @@ const handelSignUp = (req, res) => {
         });
     });
 };
+
+
 
 
 const errorHandler = (response) => {

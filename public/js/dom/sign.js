@@ -1,40 +1,36 @@
-const userNameSignIn = document.getElementById("userName-signIn");
-const userNameSignInSpan = document.getElementById("userName-signIn-span");
-const passwordSignIn = document.getElementById("password-signIn");
-const passwordSignInSpan = document.getElementById("password-signIn-span");
-const userNameSignUp = document.getElementById("userName-signUp");
-const userNameSignUpSpan = document.getElementById("userName-signUp-span");
-const passwordSignUp = document.getElementById("password-signUp");
-const passwordSignUpSpan = document.getElementById("password-signUp-span");
-const passwordConfirmSignUp = document.getElementById("passwordConfirm-signUp");
-const passwordConfirmSignUpSpan = document.getElementById(
-  "passwordConfirm-signUp-span"
-);
-const signUpForm = document.getElementById("signUp-form");
-const signInForm = document.getElementById("signIn-form");
+const signupBtn = document.querySelector(".signup-btn");
+const signinContainer = document.querySelector(".signin--container");
+const signupContainer = document.querySelector(".signup--container");
+const signupForm = document.querySelector(".form--signup");
 
-signInForm.addEventListener("submit", e => {
-  e.preventDefault();
-//   [userNameSignInSpan,passwordSignInSpan].innerhtml='';
-  if (userNameSignIn.validity.valueMissing)
-    userNameSignInSpan.textContent = "Enter user name";
-  if (passwordSignIn.validity.valueMissing)
-    passwordSignInSpan.textContent = "Enter password";
+//sign up button event
+signupBtn.addEventListener("click", event => {
+  signinContainer.classList.toggle("show");
+  signupContainer.classList.toggle("show");
 });
-signUpForm.addEventListener("submit", e => {
-    e.preventDefault();
-    // [userNameSignUpSpan,passwordSignUpSpan,passwordConfirmSignUpSpan].innerhtml='';
-    if (userNameSignUp.validity.valueMissing)
-    userNameSignUpSpan.textContent = "Enter user name";
-    if (userNameSignUp.validity.patternMismatch)
-    userNameSignUpSpan.textContent = "User name must include letters or - _ ";
-    if (passwordSignUp.validity.valueMissing)
-    passwordSignUpSpan.textContent = "Enter password";
-    if (passwordSignUp.validity.patternMismatch)
-    passwordSignUpSpan.textContent =
-    "password must be at least 8 letter and bigining with letter ";
-    if (passwordSignUp === passwordConfirmSignUp) {
-        passwordConfirmSignUpSpan.textContent =
-        "your password not equal confirm password";
+
+//sign up form event
+signupForm.addEventListener("submit", event => {
+  event.preventDefault();
+  const name = document.querySelector("input[name=signup-name]");
+  const username = document.querySelector("input[name=signup-username]");
+  const pass = document.querySelector("input[name=signup-password]");
+  const confirmPass = document.querySelector(
+    "input[name=signup-confirmPassword]"
+  );
+  if (pass.value !== confirmPass.value) {
+    const errorSpan = document.createElement("span");
+    errorSpan.textContent = "Passwords must match !!";
+    errorSpan.classList.add("error-msg");
+    signupForm.appendChild(errorSpan);
+    return;
   }
+  const data = {
+    // name: name.value,
+    username: username.value,
+    pass: pass.value
+  };
+  fetch("POST", JSON.stringify(data),"/sign-up").catch(error =>
+    console.log(error)
+  );
 });

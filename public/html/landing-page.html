@@ -20,32 +20,85 @@
   </head>
 
   <body>
-    <nav class="nav">
-      <span class="logo">Facebook مش</span>
-      <button class="sign-up">Sign Up <i class="fas fa-user-plus"></i></button>
-    </nav>
-    <main>
-      <div class="container">
-        <form class="form--signin">
-          <i class="fas fa-user-circle form--signin-icon"></i>
-          <input
-            type="text"
-            name="username"
-            class="form--signin-username form--signin-input"
-            placeholder="Username"
-            autocomplete="off"
-          />
-          <input
-            type="password"
-            name="password"
-            class="form--signin-password form--signin-input"
-            placeholder="Password"
-            autocomplete="off"
-          />
-          <input type="submit" class="form--signin-submit" value="Sign In" />
-        </form>
-      </div>
-    </main>
+    <div class="body">
+      <nav class="nav">
+        <span class="logo">Facebook مش</span>
+        <button class="signup-btn">
+          Sign Up <i class="fas fa-user-plus"></i>
+        </button>
+      </nav>
+      <main>
+        <div class="signin--container container show">
+          <form action="/sign-in" method="POST" class="form--signin form--sign">
+            <i class="fas fa-user-circle form--sign-icon"></i>
+            <input
+              type="text"
+              name="signin-username"
+              class="form--signin-username form--sign-input"
+              placeholder="Username"
+              autocomplete="off"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              class="form--signin-password form--sign-input"
+              placeholder="Password"
+              autocomplete="off"
+              required
+            />
+            <input
+              type="submit"
+              class="form--signin-submit submit"
+              value="Sign In"
+            />
+          </form>
+        </div>
+        <div class="signup--container container">
+          <form class="form--signup form--sign">
+            <i class="fas fa-user-circle form--sign-icon"></i>
+            <!-- <input
+              type="text"
+              placeholder="Full Name"
+              name="signup-name"
+              class="form--signup-name form--sign-input"
+              autocomplete="off"
+              required
+            /> -->
+            <input
+              type="text"
+              placeholder="Username"
+              name="signup-username"
+              class="form--signup-username form--sign-input"
+              autocomplete="off"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="signup-password"
+              class="form--signup-password form--sign-input"
+              autocomplete="off"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="signup-confirmPassword"
+              class="form--signup-confirmPassword form--sign-input"
+              autocomplete="off"
+              required
+            />
+            <input
+              type="submit"
+              value="Sign Up"
+              class="form--signup-submit submit"
+            />
+          </form>
+        </div>
+      </main>
+    </div>
+    <script src="public/js/fetch.js"></script>
+    <script src="public/js/dom/sign.js"></script>
   </body>
-  <script src="../js/dom/sign.js"></script>
 </html>
