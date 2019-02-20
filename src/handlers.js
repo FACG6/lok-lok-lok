@@ -161,7 +161,7 @@ const handelProfilePage = (req, res) => {
       res.end("<h1>Server Error</h1>");
     }
     res.writeHead(200, { "content-type": "application/json" });
-    res.end(result);
+    res.end(JSON.stringify(result));
   });
 };
 
