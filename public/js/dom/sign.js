@@ -5,6 +5,9 @@ const signupForm = document.querySelector(".form--signup");
 
 //sign up button event
 signupBtn.addEventListener("click", event => {
+  if (signinContainer.classList.contains("show"))
+    signupBtn.setAttribute("value", "Signin");
+  else signupBtn.setAttribute("value", "Signun");
   signinContainer.classList.toggle("show");
   signupContainer.classList.toggle("show");
 });
@@ -30,7 +33,7 @@ signupForm.addEventListener("submit", event => {
     username: username.value,
     pass: pass.value
   };
-  fetch("POST", JSON.stringify(data), "/sign-up").catch(error =>
+  fetch("POST", JSON.stringify(data), "/signup").catch(error =>
     console.log(error)
   );
 });
