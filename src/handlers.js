@@ -1,8 +1,8 @@
 const { readFile } = require('fs');
 const path = require('path');
 const queryString = require('querystring');
-const { postD, postsignIn, postsignUp , usersignUp } = require('./queries/addPost.js');
-const { getUserData, checkUser, getUserId  } = require('./queries/getPosts');
+const { postD, postsignIn, postsignUp, usersignUp } = require('./queries/addPost.js');
+const { getUserData, checkUser, getUserId } = require('./queries/getPosts');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = 'fg!efd4g4gh*efgDF4#T3YDF';
@@ -33,7 +33,7 @@ const homeHandler = (req, res) => {
         });
     }
 };
-const handelSignUp = (request , res) => {
+const handelSignUp = (request, res) => {
     const filepath = path.join(__dirname, '..', 'public', 'html', 'landing-page.html');
     readFile(filepath, (err, file) => {
         if (err) serverError(res);
@@ -52,15 +52,15 @@ const handelSignUp = (request , res) => {
                 res.end('<h1>Server Error</h1>');
             }
             else {
-                usersignUp(convertedData.username, result, (error, id ,response) => {
+                usersignUp(convertedData.username, result, (error, id, response) => {
                     if (error) {
                         res.writeHead(500, { 'content-type': 'text/html' });
                         res.end('<h1>Server/Database Error</h1>');
                     } else {
                         console.log(5555544444444444444, id);
-                        const signedData = jwt.sign(JSON.stringify({user_id: id}),secret);
+                        const signedData = jwt.sign(JSON.stringify({ user_id: id }), secret);
                         console.log(signedData);
-                        res.writeHead(302, {'location': '/', 'set-cookie': `jwt=${signedData}`});
+                        res.writeHead(302, { 'location': '/', 'set-cookie': `jwt=${signedData}` });
                         res.end();
                     }
                 });
@@ -75,21 +75,19 @@ const handelSignIn = (req, res) => {
     });
     req.on('end', () => {
         const convertedData = queryString.parse(allData);
-        console.log(convertedData);
-        checkUser(password, user, (error, response) => {
+        checkUser(convertedData['signin-username'], convertedData.password, (error, response) => {
             if (error) {
                 res.writeHead(500, { 'content-type': 'text/html' });
                 res.end('<h1>Server/Database Error</h1>');
             } else {
-                if (password == response.pas) {
-                    const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
-                    readFile(filepath, (err, file) => {
-                        if (err) serverError(res);
-                        res.writeHead(200, { 'Content-Type': 'text/html', 'Set-Cookie': 'logged_in=true' });
-                        res.end(file);
-                    });
+                const filepath = path.join(__dirname, '..', 'public', 'html', 'profile.html');
+                readFile(filepath, (err, file) => {
+                    if (err) serverError(res);
+                    res.writeHead(200, { 'Content-Type': 'text/html', 'Set-Cookie': 'logged_in=true' });
+                    res.end(file);
+                });
 
-                }
+
             }
         });
 

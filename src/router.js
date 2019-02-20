@@ -22,13 +22,13 @@ const router = (req, res) => {
         "html",
         "landing-page.html"
       );
-      fs.readFile(filePath, (err, res) => {
+      fs.readFile(filePath, (err, file) => {
         if (err) {
           res.writeHead(500, { "content-type": "text/html" });
           res.end("<h1>Server Error</h1>");
         } else {
           res.writeHead(200, { "content-type": "text/html" });
-          res.end(res);
+          res.end(file);
         }
       });
     } else {
@@ -39,13 +39,21 @@ const router = (req, res) => {
         "html",
         "landing-page.html"
       );
+<<<<<<< HEAD
       fs.readFile(filePath, (err, response) => {
+=======
+      fs.readFile(filePath, (err, file) => {
+>>>>>>> fcd37d0bca2c6015a3f855306c5f3941aac04b97
         if (err) {
           res.writeHead(500, { "content-type": "text/html" });
           res.end("<h1>Server Error</h1>");
         } else {
           res.writeHead(200, { "content-type": "text/html" });
+<<<<<<< HEAD
           res.end(response);
+=======
+          res.end(file);
+>>>>>>> fcd37d0bca2c6015a3f855306c5f3941aac04b97
         }
       });
     }
@@ -53,6 +61,7 @@ const router = (req, res) => {
     publicHandler(req, res);
   } else if (endPoint === "/add-post") {
     handelAdd(req, res);
+<<<<<<< HEAD
   } else if (endPoint === '/sign-in') {
     handelSignIn(req,res);
   }
@@ -60,8 +69,15 @@ const router = (req, res) => {
     handelSignUp(req,res);
   }
   else {
+=======
+  } else if (endPoint === "/signin") {
+    handelSignIn(req, res);
+  } else if (endPoint === "/signup") {
+    handelSignUp(req,res);
+  } else {
+>>>>>>> fcd37d0bca2c6015a3f855306c5f3941aac04b97
     errorHandler(res);
   }
-}
+};
 
 module.exports = router;
