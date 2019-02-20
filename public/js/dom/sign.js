@@ -2,7 +2,6 @@ const signupBtn = document.querySelector(".signup-btn");
 const signinContainer = document.querySelector(".signin--container");
 const signupContainer = document.querySelector(".signup--container");
 const signupForm = document.querySelector(".form--signup");
-const signinForm = document.querySelector(".form--signin");
 
 //sign up button event
 signupBtn.addEventListener("click", event => {
@@ -10,7 +9,7 @@ signupBtn.addEventListener("click", event => {
   signupContainer.classList.toggle("show");
 });
 
-//sign up form event 
+//sign up form event
 signupForm.addEventListener("submit", event => {
   event.preventDefault();
   const name = document.querySelector("input[name=signup-name]");
@@ -31,5 +30,7 @@ signupForm.addEventListener("submit", event => {
     username: username.value,
     pass: pass.value
   };
-  fetch("POST", JSON.stringify(data), "/sign-up");
+  fetch("POST", JSON.stringify(data), "/sign-up").catch(error =>
+    console.log(error)
+  );
 });
