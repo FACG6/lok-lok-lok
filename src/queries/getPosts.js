@@ -23,4 +23,4 @@ const getUserId = (user_id, cb) => {
     })
 }
 
-module.exports = { getUserData, checkUser, getUserId };
+module.exports = { getUserData , checkUser, getUserId };

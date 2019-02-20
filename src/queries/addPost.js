@@ -5,7 +5,7 @@ const addPost = (postContent, user_key, cb) => {
   const values = [postContent, user_key];
   dbConnection.query(sql, values, (err, res) => {
     if (err) cb(err);
-    cb(null, "Successfully added");
+     cb(null, "Successfully added");
   });
 };
 module.exports = addPost;
