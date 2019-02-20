@@ -20,7 +20,7 @@ const homeHandler = (req, res) => {
     try {
         cookie = parse(req.headers.cookie);
     } catch (error) { }
-    if (cookie && !isNaN(cookie.user_id)) {
+    if (cookie) {
         const filepath = path.join(
             __dirname,
             "..",
