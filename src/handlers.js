@@ -152,14 +152,14 @@ const errorHandler = response => {
 };
 
 const handelProfilePage = (req, res) => {
-    getUserData((err, result) => {
-        if (err) {
-            res.writeHead(500, { "content-type": "text/html" });
-            res.end("<h1>Server Error</h1>");
-        }
-        res.writeHead(200, { "content-type": "application/json" });
-        res.end(result);
-    });
+  getUserData((err, result) => {
+    if (err) {
+      res.writeHead(500, { "content-type": "text/html" });
+      res.end("<h1>Server Error</h1>");
+    }
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify(result));
+  });
 };
 
 module.exports = {
