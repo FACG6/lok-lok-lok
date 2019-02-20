@@ -6,8 +6,8 @@ const signupForm = document.querySelector(".form--signup");
 //sign up button event
 signupBtn.addEventListener("click", event => {
   if (signinContainer.classList.contains("show"))
-    signupBtn.setAttribute("value", "Signin");
-  else signupBtn.setAttribute("value", "Signun");
+    signupBtn.innerHTML = 'Sign in <i class="fas fa-user-plus"></i>';
+  else signupBtn.innerHTML = 'Sign up <i class="fas fa-user-plus"></i>';
   signinContainer.classList.toggle("show");
   signupContainer.classList.toggle("show");
 });
@@ -15,7 +15,6 @@ signupBtn.addEventListener("click", event => {
 //sign up form event
 signupForm.addEventListener("submit", event => {
   event.preventDefault();
-  const name = document.querySelector("input[name=signup-name]");
   const username = document.querySelector("input[name=signup-username]");
   const pass = document.querySelector("input[name=signup-password]");
   const confirmPass = document.querySelector(
@@ -30,10 +29,12 @@ signupForm.addEventListener("submit", event => {
   }
   const data = {
     username: username.value,
-    pass: pass.value,
+    pass: pass.value
   };
-  console.log(data)
-  fetch("POST", JSON.stringify(data), "/signup").catch(error =>
-    console.log(error)
-  );
+  fetch("POST", JSON.stringify(data), "/signup")
+    .then(res => {
+      signinContainer.classList.toggle("show");
+      signupContainer.classList.toggle("show");
+    })
+    .catch(error => console.log(error));
 });
