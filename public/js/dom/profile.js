@@ -1,7 +1,11 @@
 const postsDiv = document.querySelector(".posts");
 const logout = document.querySelector(".logout");
 
-logout.addEventListener("click", event => (document.cookie = ""));
+logout.addEventListener("click", event =>
+  fetch("GET", null, "/logout")
+    .then(res => document.location.reload(true))
+    .catch(renderError)
+);
 
 window.onload = () => {
   fetch("GET", null, "/get-posts")
