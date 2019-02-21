@@ -1,6 +1,6 @@
 # lok-lok-lok
 
-### Heroku link: [Facebook link]()
+### Heroku link: [Facebook link](https://lok-lok-lok.herokuapp.com/)
 
 ## Why ?
 
